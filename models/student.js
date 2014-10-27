@@ -52,13 +52,13 @@ Student.getAll = function (callback) {
 	// 打开数据库
 	mongodb.connect(settings.url, function (err, db) {
 		if (err) {
-			console.log('err1' + err);
+			//console.log('err1' + err);
 			return callback(err);
 		}
 		db.collection('student', function (err, collection) {
 			if (err) {
 				db.close();
-				console.log('err2' + err);
+				//console.log('err2' + err);
 				return callback(err);
 			}
 			collection.find({}).sort({
@@ -66,18 +66,18 @@ Student.getAll = function (callback) {
 			}).toArray(function (err, student) {
 				db.close();
 				if (err) {
-					console.log('err3' + err);
+					//console.log('err3' + err);
 					return callback(err);
 				}
-				console.log(student);
-				return (null, student);
+				//console.log(student);
+				return callback(null, student);
 			});
 		});
 	});
 };
 
-// 获取某个学生信息
-Student.get = function (name, callback) {
+// 根据姓名获取某个学生信息
+Student.getOne = function (name, callback) {
 	// 打开数据库
 	
 };

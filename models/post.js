@@ -45,6 +45,7 @@ Post.prototype.save = function(callback) {
 	});
 };
 
+// 根据通知类型获取通知
 Post.get = function(type, callback) {
 	// 打开数据库
 	mongodb.connect(settings.url, function (err, db) {

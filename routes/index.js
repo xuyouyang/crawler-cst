@@ -5,7 +5,41 @@
 var Student = require('../models/student.js');
 var Post = require('../models/post.js');
 
-exports.index = function(req, res){	
+module.exports = function(app){
+	
+	// 获取全部学生请求
+	app.get('/student', function (req, res) {
+		Student.getAll(function (err, students) {
+			if (err) {
+				res.send({
+					err : 1,
+					errMsg : err
+				});
+			}
+			res.send({
+				success : 1,
+				students : students
+			})
+		});
+	});
+	
+	// 根据通知类型获取通知列表
+	app.get('/post', function (req, res) {
+		var type = req.query.type;
+		Post.get(type, function (err, posts) {
+			if (err) {
+				res.send({
+					err : 1,
+					errMsg : err
+				});
+			}
+			res.send({
+				success : 1,
+				posts : posts
+			});
+		});
+	});
+	
 /*
 	var newStudent = new Student ({
 		student_id : 21450173,
@@ -71,8 +105,9 @@ exports.index = function(req, res){
 		}
 	});
 */
-	Post.get('edu', function(err, post) {
-		console.log(post);
-	})
-	res.render('index', { title: 'Express' });
+	app.get('/index', function (req, res) {
+		res.send({
+            key: 'value'
+        });
+	});
 };
