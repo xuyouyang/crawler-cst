@@ -48,7 +48,7 @@ Student.prototype.save = function (callback) {
 
 
 // 获取全部学生信息,按学号升序排序
-Student.getAll = function (callback) {
+Student.getAll = function (major, grade, callback) {
 	// 打开数据库
 	mongodb.connect(settings.url, function (err, db) {
 		if (err) {
@@ -61,7 +61,14 @@ Student.getAll = function (callback) {
 				//console.log('err2' + err);
 				return callback(err);
 			}
-			collection.find({}).sort({
+			var query = {};
+			if (major) {
+				query.major = major;
+			}
+			if (grade) {
+				query.grade = grade;
+			}
+			collection.find(query).sort({
 				student_id: 1
 			}).toArray(function (err, student) {
 				db.close();

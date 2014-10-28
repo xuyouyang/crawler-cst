@@ -11,6 +11,7 @@
     "mongodb": "*",
     "connect-mongo": "*",
     "mongoose": "*",
-    "async": "*"
+    "async": "*",
+    "cheerio": "*"
   }
 }

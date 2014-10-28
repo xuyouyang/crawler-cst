@@ -64,7 +64,7 @@ Post.get = function(type, callback) {
 			}).toArray(function (err, post) {
 				db.close();
 				if (err) {
-					return callback(null);
+					return callback(err);
 				}
 				return callback(null, post);
 			});
@@ -72,7 +72,30 @@ Post.get = function(type, callback) {
 	});	
 };
 
-
+// 根据通知的标题和时间获取一条通知
+Post.getOne = function (title, publish_time, callback) {
+	mongodb.connect(settings.url, function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('post', function (err, collection) {
+			if (err) {
+				db.close();
+				return callback(err);
+			}
+			collection.find({
+				title: title,
+				publish_time: publish_time
+			}).toArray(function (err, post) {
+				db.close();
+				if (err) {
+					return callback(err);
+				}
+				return callback(err, post[0]);
+			});
+		});
+	});
+};
 
 
 

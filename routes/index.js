@@ -7,20 +7,25 @@ var Post = require('../models/post.js');
 
 module.exports = function(app){
 	
-	// 获取全部学生请求
-	app.get('/student', function (req, res) {
-		Student.getAll(function (err, students) {
+	// 获取学生信息请求
+	app.get('/allStudent', function (req, res) {
+		Student.getAll(req.query.major, req.query.grade, function (err, students) {
 			if (err) {
 				res.send({
 					err : 1,
 					errMsg : err
-				});
-			}
+					});
+				}
 			res.send({
 				success : 1,
 				students : students
-			})
-		});
+			});
+		});		
+	});
+	
+	// 搜索学生信息请求
+	app.get('searchStudent', function (req, res) {
+		Student.search
 	});
 	
 	// 根据通知类型获取通知列表
@@ -40,6 +45,9 @@ module.exports = function(app){
 		});
 	});
 	
+	app.get('searchPost', function (req, res) {
+		
+	});
 /*
 	var newStudent = new Student ({
 		student_id : 21450173,
