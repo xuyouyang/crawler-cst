@@ -12,6 +12,7 @@
     "connect-mongo": "*",
     "mongoose": "*",
     "async": "*",
-    "cheerio": "*"
+    "cheerio": "*",
+    "node-xlsx" : "*"
   }
 }

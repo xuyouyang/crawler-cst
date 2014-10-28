@@ -11,7 +11,8 @@ var path = require('path');
 
 var app = express();
 
-var crawler = require('./crawler/crawler');// 爬虫模块
+var crawler = require('./util/crawler');// 爬虫模块
+var excel = require('./util/excel');// 读取学生的excel
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -27,13 +28,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+  	app.use(express.errorHandler());
 }
 
 app.use(app.router);
 routes(app);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-  crawler.run();
+	console.log('Express server listening on port ' + app.get('port'));
+	//crawler.run();
+	excel.run();
 });

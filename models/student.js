@@ -47,7 +47,7 @@ Student.prototype.save = function (callback) {
 };
 
 
-// 获取全部学生信息,按学号升序排序
+// 获取全部学生信息,按学号升序排序,可根据专业、年级分类
 Student.getAll = function (major, grade, callback) {
 	// 打开数据库
 	mongodb.connect(settings.url, function (err, db) {
@@ -84,7 +84,31 @@ Student.getAll = function (major, grade, callback) {
 };
 
 // 根据姓名获取某个学生信息
-Student.getOne = function (name, callback) {
+Student.searchOne = function (name, callback) {
 	// 打开数据库
-	
+	mongodb.connect(settings.url, function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('student', function (err, collection) {
+			if (err) {
+				db.close();
+				return callback(err);
+			}
+			collection.find({
+				name : name
+			}).toArray(function (err, student) {
+				db.close();
+				if (err) {
+					return callback(err);
+				}
+				return callback(err, student[0]);
+			});
+		});
+	});
+};
+
+// 根据学号获取某个学生信息
+Student.getOne =  function (student_id, callback) {
+		
 };
