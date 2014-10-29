@@ -110,5 +110,24 @@ Student.searchOne = function (name, callback) {
 
 // 根据学号获取某个学生信息
 Student.getOne =  function (student_id, callback) {
-		
+	mongodb.connect(settings.url, function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('student', function (err, collection) {
+			if (err) {
+				db.close();
+				return callback(err);
+			}
+			collection.find({
+				student_id : student_id
+			}).toArray(function (err, student) {
+				db.close();
+				if (err) {
+					return callback(err);
+				}
+				return callback(err, student[0]);
+			});
+		});
+	});
 };
