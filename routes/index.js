@@ -62,7 +62,8 @@ module.exports = function(app){
 
 	app.get('/index', function (req, res) {
 		res.send({
-			key: 'value'
+			key: 'value',
+			key2: 'value2'
 		});
 	});
 };
