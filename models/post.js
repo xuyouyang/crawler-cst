@@ -5,7 +5,7 @@ function Post(post) {
 	this.title = post.title;// 通知标题
 	this.link = post.link;// 通知链接
 	this.publish_time = post.publish_time;// 通知发布时间
-	this.type = post.type;// 通知类型：news, edu, job
+	this.type = post.type;// 通知类型：news, edu, job, enroll
 	this.top = post.top;// 通知是否为置顶
 }
 

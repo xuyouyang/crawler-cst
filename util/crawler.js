@@ -11,6 +11,9 @@ exports.run = function () {
 	crawler('news');
 	crawler('edu');
 	crawler('enroll');
+	
+//	console.log('crawlerUrl run');
+//	crawlerUrl('http://www.cst.zju.edu.cn/index.php?c=Index&a=detail&catid=72&id=2429');
 };
 
 var crawler = function (type) {
@@ -84,3 +87,29 @@ var crawler = function (type) {
 		}
 	});
 };
+
+// 通过URL爬取具体页面的内容
+var crawlerUrl = function (url) {
+	download (url , function (data) {
+		// 如果连接成功
+		if (data) { 
+			var $ = cheerio.load(data);
+			console.log($('div .detailed_wk').html());
+		}
+	});
+};
+
+// 加载网页
+function download (url, callback) {
+	http.get(url, function (res) {
+		var data = "";
+		res.on('data', function (chunk) {
+			data += chunk;
+		});
+		res.on("end", function() {
+			callback(data);
+		});
+	}).on("error", function() {
+		callback(null);
+	});
+}
